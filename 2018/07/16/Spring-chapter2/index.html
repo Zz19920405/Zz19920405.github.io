@@ -108,23 +108,24 @@
 
 
 
-  <meta name="description" content="愿你走出半生路 归来仍是少年">
-<meta property="og:type" content="website">
+  <meta name="description" content="我的第二篇博客1 能力适配平台 能力适配的主要功能是进行服务的调用，BU通过能力适配平台调用AU,功能和配置都类似于ESB,(鉴权/协议转换/路由/访问控制/交易记录)给运维平台同步交易信息，配置模式为标准的TOMCAT容器和应用以及后端数据库的配置。 1、容器配置：server.xml 端口配置以及应用路径指向，context.xml对数据库的连接定义 2、应用配置：配置app启动加载参数，同类">
+<meta property="og:type" content="article">
 <meta property="og:title" content="My Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/07/16/Spring-chapter2/index.html">
 <meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="愿你走出半生路 归来仍是少年">
+<meta property="og:description" content="我的第二篇博客1 能力适配平台 能力适配的主要功能是进行服务的调用，BU通过能力适配平台调用AU,功能和配置都类似于ESB,(鉴权/协议转换/路由/访问控制/交易记录)给运维平台同步交易信息，配置模式为标准的TOMCAT容器和应用以及后端数据库的配置。 1、容器配置：server.xml 端口配置以及应用路径指向，context.xml对数据库的连接定义 2、应用配置：配置app启动加载参数，同类">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-16T09:31:21.005Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="My Blog">
-<meta name="twitter:description" content="愿你走出半生路 归来仍是少年">
+<meta name="twitter:description" content="我的第二篇博客1 能力适配平台 能力适配的主要功能是进行服务的调用，BU通过能力适配平台调用AU,功能和配置都类似于ESB,(鉴权/协议转换/路由/访问控制/交易记录)给运维平台同步交易信息，配置模式为标准的TOMCAT容器和应用以及后端数据库的配置。 1、容器配置：server.xml 端口配置以及应用路径指向，context.xml对数据库的连接定义 2、应用配置：配置app启动加载参数，同类">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/16/Spring-chapter2/"/>
 
 
 
@@ -134,7 +135,7 @@
   };
 </script>
 
-  <title>My Blog</title>
+  <title> | My Blog</title>
   
 
 
@@ -181,8 +182,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -223,7 +223,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
     <a href="/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
   </li>
@@ -267,9 +267,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -302,10 +302,6 @@
         
         
           <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/16/Spring-chapter2/" itemprop="url">
-                  未命名
-                </a>
               
             
           </h1>
@@ -368,8 +364,7 @@
       
 
       
-        
-          <h2 id="我的第二篇博客"><a href="#我的第二篇博客" class="headerlink" title="我的第二篇博客"></a>我的第二篇博客</h2><p>1 能力适配平台</p>
+        <h2 id="我的第二篇博客"><a href="#我的第二篇博客" class="headerlink" title="我的第二篇博客"></a>我的第二篇博客</h2><p>1 能力适配平台</p>
 <pre><code>能力适配的主要功能是进行服务的调用，BU通过能力适配平台调用AU,功能和配置都类似于ESB,(鉴权/协议转换/路由/访问控制/交易记录)给运维平台同步交易信息，配置模式为标准的TOMCAT容器和应用以及后端数据库的配置。
 1、容器配置：server.xml 端口配置以及应用路径指向，context.xml对数据库的连接定义
 2、应用配置：配置app启动加载参数，同类一起修改
@@ -403,15 +398,8 @@ p;zeroDateTimeBehavior=convertToNull" username="dbesbclog" password="ESBecs00" m
 <p>1.6 数据库的配置<br>1.6.1数据库配置<br>只需修改sys_para表和log_db表，其他对数据库的更改操作需咨询开发后在做<br>编号    字段名称    字段类型    备注<br>1    SYS_PARA_NAME    varchar(64)<br>2    SYS_PARA_VALUE    varchar(128)<br>3    IS_CAN_REFRESH    tinyint(4)<br>4    DESCRIBES    varchar(1024)    </p>
 <p>修改字段<br>SYS_PARA_NAME    SYS_PARA_VALUE    IS_CAN_REFRESH    DESCRIBES<br>CAS_MACHINE_IPS    132.42.33.183    1    CAS所在机器的可能IP集<br>CAS_NODE_IP    132.42.33.183    1    CAS所在的机器IP<br>CAS_NODE_PORT    8001    1    CAS所监听的端口<br>FTP_NODE_IP    132.42.33.183    0    处理FTP的SC的IP<br>FTP_NODE_PORT    9201    0    处理FTP的SC的端口<br>FTP_UPLOAD_DOWN<br>_PORT_HTTP    9201,9202    1    能过HTTP协议上传<br>下载文件端口<br>OUT_ADDR_IP    132.42.33.183    1    ESB对外提供的访问IP（四层交换机虚拟IP）<br>OUT_ADDR_PORT    9102    1    ESB对外提供的访问端口（四层交换机虚拟端口）<br>CFGDB_LINKSTR    jdbc:mysql://132.42.33.175:3306/ESBCFGDB    0    配置库jdbc连接串<br>CLOGDB_LINKSTR    jdbc:mysql://132.42.33.175:3306/ESBCLOGDB    0    clog库连接串<br>FTPDB_LINKSTR    jdbc:mysql://132.42.33.175:3306/ESBFTPDB    0    FTP库连接串<br>1.6.2sys_para表的修改<br>delete from esbcfgdb.sys_para where sys_para_name = ‘UNIBSS_FULLSVC_WS_VALID_IGNORE’;<br>delete from esbcfgdb.sys_para where sys_para_name =’UNIBSS_BBSS_WS_VALID_IGNORE’;<br>alter table esbcfgdb.SC_LOGDB change column MAX_IDLE_COUNT to LONG_CONN_NUM int;<br>commit;<br>alter table esbclogdb.sc_mon_log add ASYN_RUNNING_UPD_QUEUE_LEN INTEGER                    not      NULL;<br>alter table esbclogdb.sc_mon_log add     CONSTRAINT CSC_MONASYN_RUNNIUEUE_LENN_LOG CHECK (“ASYN_RUNNING_UPD_QUEUE_LEN” &gt;= 0);<br>insert into esbcfgdb.sys_para (sys_para_name,sys_para_value,describes,is_can_refresh)values(‘FTP_SYNCFILE_AUTO_MOVE_IN_DAYS’,2,’N天内同步上传但是未下载的文件自动转移’,1);<br>DELETE from esbcfgdb.sys_para where  sys_para_name  in<br>       (‘HSN_CFGDS_MAXACTIVE’,<br>        ‘HSN_CFGDS_MAXIDLE’,<br>        ‘CAS_CFGDS_MAXACTIVE’,<br>        ‘CAS_CFGDS_MAXIDLE’,<br>        ‘CAS_FTPDS_MAXACTIVE’,<br>        ‘CAS_FTPDS_MAXIDLE’,<br>        ‘CAS_CLOGDS_MAXACTIVE’,<br>        ‘CAS_CLOGDS_MAXIDLE’,<br>        ‘SC_CFGDS_MAXACTIVE’,<br>        ‘SC_CFGDS_MAXIDLE’,<br>        ‘SC_FTPDS_MAXACTIVE’,<br>        ‘SC_FTPDS_MAXIDLE’,<br>        ‘SC_CLOGDS_MAXACTIVE’,<br>        ‘SC_CLOGDS_MAXIDLE’,<br>        ‘OSN_CFGDS_MAXACTIVE’,<br>        ‘OSN_CFGDS_MAXIDLE’,<br>        ‘OSN_CLOGDS_MAXACTIVE’,<br>        ‘OSN_CLOGDS_MAXIDLE’,<br>        ‘DEFAULT_LOGDS_MAXACTIVE’,<br>        ‘DEFAULT_LOGDS_MAXIDLE’,<br>        ‘DEFAULT_DS_REMOVEABANDONEDTIMEOUT’,<br>        ‘DEFAULT_DS_SETNUMTESTSPEREVICTIONRUN’,<br>        ‘DEFAULT_DS_SETMINEVICTABLEIDLETIMEMILLIS’,<br>        ‘DEFAULT_DS_TIMEBETWEENEVICTIONRUNSMILLIS’,<br>        ‘DS_VALIDATIONQUERY’,<br>        ‘DEFAULT_DS_REMOVEABANDONED’);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘HSN_CFGDS_MAXACTIVE’, ‘30’, ‘HSN_CFG数据源最大连接数’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘HSN_CFGDS_LONG_CONN_NUM’, ‘1’, ‘HSN_CFG数据源长连接数’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘CAS_CFGDS_MAXACTIVE’, ‘30’, ‘CAS_CFG数据源最大连接数’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘CAS_CFGDS_LONG_CONN_NUM’, ‘5’, ‘CAS_CFG数据源长连接数’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘CAS_FTPDS_MAXACTIVE’, ‘30’, ‘CAS_FTP数据源最大连接数’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘CAS_FTPDS_LONG_CONN_NUM’, ‘5’, ‘CAS_FTP数据源长连接数’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘CAS_CLOGDS_MAXACTIVE’, ‘10’, ‘CAS_CLOG数据源最大连接数’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘CAS_CLOGDS_LONG_CONN_NUM’, ‘5’, ‘CAS_CLOG数据源长连接数’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘SC_CFGDS_MAXACTIVE’, ‘50’, ‘CAS_CFG数据源最大连接数’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘SC_CFGDS_LONG_CONN_NUM’, ‘1’, ‘CAS_CFG数据源长连接数’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘SC_FTPDS_MAXACTIVE’, ‘30’, ‘CAS_FTP数据源最大连接数’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘SC_FTPDS_LONG_CONN_NUM’, ‘5’, ‘CAS_FTP数据源长连接数’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘SC_CLOGDS_MAXACTIVE’, ‘10’, ‘CAS_CLOG数据源最大连接数’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘SC_CLOGDS_LONG_CONN_NUM’, ‘1’, ‘CAS_CLOG数据源长连接数’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘OSN_CFGDS_MAXACTIVE’, ‘30’, ‘CAS_CFG数据源最大连接数’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘OSN_CFGDS_LONG_CONN_NUM’, ‘1’, ‘CAS_CFG数据源长连接数’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘OSN_CLOGDS_MAXACTIVE’, ‘10’, ‘CAS_CLOG数据源最大连接数’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘OSN_CLOGDS_LONG_CONN_NUM’, ‘1’, ‘CAS_CLOG数据源长连接数’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘DEFAULT_LOGDS_MAXACTIVE’, ‘20’, ‘默认LOG数据源最大连接数’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘DEFAULT_LOGDS_LONG_CONN_NUM’, ‘5’, ‘默认LOG数据源长连接数’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘DEFAULT_DS_REMOVEABANDONEDTIMEOUT’, ‘60’, ‘丢弃连接超时时间(毫秒)’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘DEFAULT_DS_SETNUMTESTSPEREVICTIONRUN’, ‘2’, ‘逐出判定个数(个)’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘DEFAULT_DS_SETMINEVICTABLEIDLETIMEMILLIS’, ‘60000’, ‘连接最小逐出时间(毫秒)’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘DEFAULT_DS_TIMEBETWEENEVICTIONRUNSMILLIS’, ‘60000’, ‘连接逐出间隔(毫秒)’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘DS_VALIDATIONQUERY’, ‘select 1 from dual’, ‘数据库连接校验sql’, 0);<br>insert into esbcfgdb.sys_para (SYS_PARA_NAME, SYS_PARA_VALUE, DESCRIBES, IS_CAN_REFRESH)<br>values (‘DEFAULT_DS_REMOVEABANDONED’, ‘false’, ‘是否进行连接强制回收’, 0);<br>commit;<br>1.6.3<br>主键：LOG_DB_NO<br>唯一键: LOG_DB_NAME<br>LOG_DB_NO    LOG_DB_NAME    LOG_DB_LINK_STR<br>0    00    mysql://$LOG_DB_USER$:<a href="mailto:$LOG_DB_PASSWD$@132.42.33.188" target="_blank" rel="noopener">$LOG_DB_PASSWD$@132.42.33.188</a>:3306/ESBLOGDB<br>1    01    mysql://$LOG_DB_USER$:<a href="mailto:$LOG_DB_PASSWD$@132.42.33.187" target="_blank" rel="noopener">$LOG_DB_PASSWD$@132.42.33.187</a>:3306/ESBLOGDB</p>
 <p>LOG_DB_NAME值与context.xml中EsbLogDS_00红色标注部分的一致</p>
-&lt;Resource name=”jdbc/EsbLogDS_00” auth=”Container”<br><br><br><br><br>配CAF webapps tom__  和 application__   00  01  01<br><br><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/07/16/Spring-chapter2/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+&lt;Resource name=”jdbc/EsbLogDS_00” auth=”Container”<br><br><br><br><br>配CAF webapps tom__  和 application__   00  01  01<br><br><br><a id="more"></a>
+
       
     </div>
 
@@ -431,168 +419,28 @@ p;zeroDateTimeBehavior=convertToNull" username="dbesbclog" password="ESBecs00" m
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/10/Spring-chapter1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="南上">
-      <meta itemprop="description" content="愿你走出半生路 归来仍是少年">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/10/Spring-chapter1/" itemprop="url">
-                  未命名
-                </a>
-              
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
+              <a href="/2018/07/10/Spring-chapter1/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
             
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-07-10 18:36:13" itemprop="dateCreated datePublished" datetime="2018-07-10T18:36:13+08:00">2018-07-10</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-07-16 17:08:30" itemprop="dateModified" datetime="2018-07-16T17:08:30+08:00">2018-07-16</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h2 id="title-我的第一篇博客"><a href="#title-我的第一篇博客" class="headerlink" title="title: 我的第一篇博客"></a>title: 我的第一篇博客</h2><p>安装Git Bash<br>安装NodeJs<br>安装hexo<br>生成SSH并添加到github<br>部署项目<br>上传到github<br>绑定个人域名<br>修改及配置主题<br>添加RSS<br>添加评论<br>写文章部分<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/07/10/Spring-chapter1/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -602,14 +450,19 @@ p;zeroDateTimeBehavior=convertToNull" username="dbesbclog" password="ESBecs00" m
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -630,8 +483,17 @@ p;zeroDateTimeBehavior=convertToNull" username="dbesbclog" password="ESBecs00" m
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -676,6 +538,22 @@ p;zeroDateTimeBehavior=convertToNull" username="dbesbclog" password="ESBecs00" m
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#我的第二篇博客"><span class="nav-number">1.</span> <span class="nav-text">我的第二篇博客</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ensure-that-any-user-defined-CLASSPATH-variables-are-not-used-on-startup"><span class="nav-number"></span> <span class="nav-text">Ensure that any user defined CLASSPATH variables are not used on startup,</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#but-allow-them-to-be-specified-in-setenv-sh-in-rare-case-when-it-is-needed"><span class="nav-number"></span> <span class="nav-text">but allow them to be specified in setenv.sh, in rare case when it is needed.</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -803,6 +681,10 @@ p;zeroDateTimeBehavior=convertToNull" username="dbesbclog" password="ESBecs00" m
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
 
   
 

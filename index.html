@@ -284,6 +284,155 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/22/Spring-chapter3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="南上">
+      <meta itemprop="description" content="愿你走出半生路 归来仍是少年">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/22/Spring-chapter3/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-22 10:30:07 / 修改时间：10:31:30" itemprop="dateCreated datePublished" datetime="2019-01-22T10:30:07+08:00">2019-01-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="我的第三篇博客"><a href="#我的第三篇博客" class="headerlink" title="我的第三篇博客"></a>我的第三篇博客</h2><p>**## 前言：本篇主要实现根据索引名ElasticSearch集群之间的数据同步</p>
+<p>准备：ElasticSearch-2.3.4集群两套</p>
+<p>ES相关知识可以参考：<a href="http://www.ruanyifeng.com/blog/2017/08/elasticsearch.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2017/08/elasticsearch.html</a></p>
+<p>附上简单的操作指令，准备数据可能用到：</p>
+<p>创建索引【PUT】：        http://你的IP:9200/索引名?pretty<br>查看指定索引信息【GET】： http://你的IP:9200/索引名?pretty<br>指定索引插入数据【PUT】： http://你的IP:9200/索引名/类型/ID?pretty 数据： json格式数据<br>删除指定索引【DELETE】： http://你的IP:9200/索引名?pretty<br>集群健康状态【GET】   ： http://你的IP:9200/_cat/health?v<br>集群所有节点【GET】：    http://你的IP:9200/_cat/nodes?v<br>集群所有索引【GET】：    http://你的IP:9200/_cat/indices?v<br>由于实际情况中需要同步的集群可能是多对多的关系，本次实现获取数据源的信息均来自数据库配置，不放在配置文件中。</p>
+<h2 id="一，ES初始化方法"><a href="#一，ES初始化方法" class="headerlink" title="一，ES初始化方法"></a>一，ES初始化方法</h2><p>public Client build(String ip, String clusterName, int port) {<br> LOGGER.info(“创建开始”);<br> try {<br> Settings settings = Settings<br> .settingsBuilder()<br> .put(“cluster.name”, clusterName)<br> .put(“client.transport.sniff”, true)<br> .build();<br> LOGGER.info(“创建InetSocketTransportAddress开始”);<br> InetSocketTransportAddress inetSocketTransportAddress = new InetSocketTransportAddress(InetAddress.getByName(ip), port);<br> LOGGER.info(“创建InetSocketTransportAddress结束”);<br> LOGGER.info(“创建Client开始”);<br> client = TransportClient.builder().settings(settings).build().addTransportAddress(inetSocketTransportAddress);<br> LOGGER.info(“创建Client结束”);<br> } catch (Exception e) {<br> LOGGER.error(“异常：” + e);<br> }<br> LOGGER.info(“创建结束”);<br> return client;<br>}</p>
+<h2 id="二，创建ElasticsearchTemplate"><a href="#二，创建ElasticsearchTemplate" class="headerlink" title="二，创建ElasticsearchTemplate"></a>二，创建ElasticsearchTemplate</h2><p>ElasticsearchTemplate elasticsearchTemplate = new ElasticsearchTemplate(client);</p>
+<h2 id="三，索引数据同步"><a href="#三，索引数据同步" class="headerlink" title="三，索引数据同步"></a>三，索引数据同步</h2><p>String addEs(ReqBO dataAdd) {<br>List<string> indexList = dataAdd.getTableName();<br>for (String nameIndex : indexList) {<br>/<strong>判断索引是否存在*/<br>if (isIndexExist(nameIndex, elasticsearchTemplateBusi)) {<br>if (!isIndexExist(esIndex + nameIndex, elasticsearchTemplateShadow)) {<br>CreateIndexResponse indexresponse = elasticsearchTemplateShadow.getClient().admin().indices().prepareCreate(esIndex + nameIndex).execute().actionGet();<br>logger.info(“创建影子库索引:” + esIndex + nameIndex);<br>}<br>/</strong>滚动搜索<em>/<br>SearchResponse scrollResp = elasticsearchTemplateBusi.getClient().prepareSearch(nameIndex)<br>.setSearchType(SearchType.SCAN)<br>.setScroll(new TimeValue(60000))<br>.setQuery(QueryBuilders.matchAllQuery())<br>.setSize(100).execute().actionGet();<br>/**设置批量处理器</em>/<br>int BULK_ACTIONS_THRESHOLD = 1000;<br>int BULK_CONCURRENT_REQUESTS = 1;<br>BulkProcessor bulkProcessor = BulkProcessor.builder(elasticsearchTemplateShadow.getClient(), new BulkProcessor.Listener() {<br>@Override<br>public void beforeBulk(long executionId, BulkRequest request) {<br>logger.info(“执行新批量:”, request.numberOfActions());<br>}<br>@Override<br>public void afterBulk(long executionId, BulkRequest request, BulkResponse response) {<br>logger.info(“执行批量成功:”, request.numberOfActions());<br>}<br>@Override<br>public void afterBulk(long executionId, BulkRequest request, Throwable failure) {<br>logger.warn(“异常处理:”, failure);<br>}<br>}).setBulkActions(BULK_ACTIONS_THRESHOLD).setConcurrentRequests(BULK_CONCURRENT_REQUESTS).setFlushInterval(TimeValue.timeValueMillis(5)).build();<br>/<strong>在步骤1中通过创建的滚动搜索器从旧索引读取，直到剩下记录并插入新索引*/<br>while (true) {<br>scrollResp = elasticsearchTemplateBusi.getClient().prepareSearchScroll(scrollResp.getScrollId()).setScroll(new TimeValue(600000)).execute().actionGet();<br>//退出条件: 没有Hit返回<br>if (scrollResp.getHits().getHits().length == 0) {<br>/</strong>创建影子库索引*/<br>if (!isIndexExist(esIndex + nameIndex, elasticsearchTemplateShadow)) {<br>//CreateIndexResponse indexresponse = client.admin().indices().prepareCreate(esIndex + nameIndex).execute().actionGet();<br>//logger.info(“执行建立成功:” + indexresponse.isAcknowledged());<br>}<br>logger.info(“关闭批量任务”);<br>bulkProcessor.close();<br>break;<br>}<br>for (SearchHit hit : scrollResp.getHits()) {<br>IndexRequest request = new IndexRequest(esIndex + nameIndex, hit.type(), hit.id());<br>Map source = ((Map) ((Map) hit.getSource()));<br>request.source(source);<br>bulkProcessor.add(request);<br>}<br>}<br>}<br>}<br>logger.info(“同步结束”);<br>return “SUCCESS”;<br>}</string></p>
+<h2 id="四，索引数据清理"><a href="#四，索引数据清理" class="headerlink" title="四，索引数据清理"></a>四，索引数据清理</h2><p>void cleanEs(ReqBO dataClean) {<br> List<string> indexList = dataClean.getTableName();<br> for (String nameIndex : indexList) {<br> /*<em>判断索引是否存在，清空影子库</em>/<br> if (isIndexExist(esIndex + nameIndex, elasticsearchTemplateShadow)) {<br> logger.info(“清理索引【” + esIndex + nameIndex + “】”);<br> deleteIndex(esIndex + nameIndex, elasticsearchTemplateShadow);<br> }<br> }<br>}<br>public static boolean deleteIndex(String index, ElasticsearchTemplate elasticsearchTemplate) {<br> if (!isIndexExist(index, elasticsearchTemplate)) {<br> logger.info(“索引不存在！”);<br> }<br> DeleteIndexResponse dResponse = elasticsearchTemplate.getClient().admin().indices().prepareDelete(index).execute().actionGet();<br> if (dResponse.isAcknowledged()) {<br> logger.info(“删除索引” + index + “成功!”);<br> } else {<br> logger.info(“删除索引” + index + “失败!”);<br> }<br> return dResponse.isAcknowledged();<br>}<br>以上均为本次简单代码实现，留作笔记，方法实现的介绍有空再写；</string></p>
+<p>ps:待优化，欢迎指正<strong>**</strong></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/16/Spring-chapter2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -629,7 +778,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
